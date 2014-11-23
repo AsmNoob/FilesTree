@@ -6,15 +6,25 @@ parcours(){
 	fi
 	for element in $1/*
 	do
-		if [ -d $element ]; then
-			echo $element
-			parcours $element
-		else
+		if [ -e $element ]; then
+			if [ -d $element ]; then
+				if [ $(ls -l $element | wc -l) -ge 3 ]; then
+					echo "$2|-- ${element#$1/}"
+					parcours "$element" "$2    "
+				else
+					echo "$2|-- ${element#$1/}"
+					echo "$2    |-- *"	
+				fi
+			fi
 			if [ -f $element ]; then
-			echo $element
+				echo "$2|-- ${element#$1/}"
 			fi
 		fi
 	done
 }
 
-parcours .
+root="."
+[ $# -ge 1 ] && root="$1"
+parcours "$root"
+
+
