@@ -14,4 +14,5 @@ First make the file executable with chmod then
 '''
 ./filestree .  -> current dir
 ./filestree /anyPath -> any path
+'''
 
